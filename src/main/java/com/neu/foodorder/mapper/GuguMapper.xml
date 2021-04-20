@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.foodorder.mapper.GuguMapper">
+
+
+
+    <!--  加咕咕-->
+    <insert id="add" >
+          insert into gugu(weight,guguname,state,food,gugulevel)  values(1,#{guguname},1,0,1)
+    </insert>
+    <select id="selectGuguById" resultType="com.neu.foodorder.entity.Gugu">
+        SELECT * FROM gugu WHERE id = #{guguid}
+    </select>
+
+    <!-- 更新用户信息 -->
+    <update id="updateGugu" parameterType="com.neu.foodorder.entity.Gugu">
+        update gugu
+        <set>
+            <if test="weight!=null and weight!=''">
+                weight=#{weight},
+            </if>
+            <if test="guguname!=null and guguname!=''">
+                guguname=#{guguname},
+            </if>
+            <if test="state!=null and state!='' ">
+                state=#{state},
+            </if>
+            <if test="food!=null and food!=''">
+                food=#{food},
+            </if>
+            <if test="gugulevel!=null and gugulevel!=''">
+                gugulevel=#{gugulevel},
+            </if>
+
+        </set>
+        where id=#{id}
+    </update>
+
+</mapper>
