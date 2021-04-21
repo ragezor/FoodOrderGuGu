@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.foodorder.mapper.TodoMapper">
+
+
+
+    <!--  加todo-->
+    <insert id="add" >
+          insert into todo(userid,todoname,donetime)  values(#{userid},#{todoname},#{donetime})
+    </insert>
+<!--    根据id查todo-->
+    <select id="selectTodoById" resultType="com.neu.foodorder.entity.Todo">
+        SELECT * FROM todo WHERE todoid = #{todoid}
+    </select>
+
+    <!-- 更新todo信息 -->
+    <update id="updateTodo" parameterType="com.neu.foodorder.entity.Todo">
+        update todo
+        <set>
+            <if test="userid!=null and userid!=''">
+                userid=#{userid},
+            </if>
+            <if test="todoname!=null and todoname!=''">
+                todoname=#{todoname},
+            </if>
+            <if test="donetime!=null and donetime!='' ">
+                donetime=#{donetime},
+            </if>
+
+
+        </set>
+        where todoid=#{todoid}
+    </update>
+
+</mapper>

@@ -86,7 +86,7 @@ public class GuguController {
         return map;
     }
     //喂养鸽子
-    @RequestMapping("/feedGugu")
+    @RequestMapping("/feedgugu")
     public Object feedGugu(@RequestBody Gugu gugu) {
         Map<String,Object> map=new HashMap<>();
         Gugu newgugu=guguService.selectGuguById(gugu.getId().toString());

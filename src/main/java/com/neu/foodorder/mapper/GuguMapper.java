@@ -23,7 +23,7 @@ Gugu selectGuguById(String guguid);
     public int updateGugu(Gugu gugu);
 
 //    //喂咕咕
-//    public int feed(Gugu gugu);
+   public int feed(Gugu gugu);
 
 
 }
