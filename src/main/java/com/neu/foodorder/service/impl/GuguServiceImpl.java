@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class GuguServiceImpl  implements GuguService {
      @Autowired(required = false)
-     private  GuguMapper guguMapper;
+    private  GuguMapper guguMapper;
 
 
     @Override

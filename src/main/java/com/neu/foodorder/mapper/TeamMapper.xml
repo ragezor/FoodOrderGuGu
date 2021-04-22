@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.foodorder.mapper.TeamMapper">
+
+
+
+    <!--  创建队伍-->
+    <insert id="add" >
+          insert into team(teamname)  values(#{teamname})
+    </insert>
+<!--    查找队伍名称-->
+    <select id="selectTeamById" resultType="com.neu.foodorder.entity.Team">
+        SELECT * FROM team WHERE teamid = #{teamid}
+    </select>
+
+    <!-- 更新队伍信息 -->
+    <update id="updateTeam" parameterType="com.neu.foodorder.entity.Team">
+        update team
+        <set>
+            <if test="teamname!=null and teamname!=''">
+                teamname=#{teamname},
+            </if>
+        </set>
+        where teamid=#{teamid}
+    </update>
+
+</mapper>

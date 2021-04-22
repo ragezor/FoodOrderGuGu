@@ -13,6 +13,7 @@ public class TodoServiceImpl implements TodoService {
     private TodoMapper todoMapper;
     @Override
     public int add(Todo todo) {
+        System.out.println(todo.getTodoname());
         return todoMapper.add(todo);
     }
 
