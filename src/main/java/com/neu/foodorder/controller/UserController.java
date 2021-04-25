@@ -153,7 +153,31 @@ public class UserController {
 			map.put("result", result);
 			return map;
 		}
-		
+	//用户退出队伍
+	@RequestMapping("/quitteam")
+	public Object quitTeam(@RequestParam("userid")int id) {
+		Map<String,Object> map=new HashMap<>();
+		User user=us.getUserById(id);
+		System.out.println(user.getTeamid());
+		user.setTeamid(1);
+		System.out.println(user.getTeamid());
+		int i=us.updateUser(user);
+		Map<String,Object> result=new HashMap<>();
+		if(i==1) {
+			result.put("udMsg", "成功退队");
+			map.put("success",true);
+			map.put("code",1);
+			map.put("failMsg","");
+		}
+		else {
+			result.put("udMsg", "退队失败");
+			map.put("success",false);
+			map.put("code",0);
+			map.put("failMsg","用户不存在或参数为空");
+		}
+		map.put("result", result);
+		return map;
+	}
 		//上传用户头像
 		@RequestMapping("/upload")
 		public Object upload(@RequestParam("mf")MultipartFile mf,@RequestParam("userid")int id){
