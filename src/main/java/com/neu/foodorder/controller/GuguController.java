@@ -47,9 +47,10 @@ public class GuguController {
     }
 
     //获取当前用户的咕咕
-    @RequestMapping("getgugubyid")
-    public Object getGuguById(@RequestParam("guguid")String id) {
-       Gugu gugu= (Gugu) guguService.selectGuguById(id);
+    @RequestMapping("/getgugubyid")
+    public Object getGuguById(HttpSession session) {
+        User user=(User)session.getAttribute("loginUser");
+       Gugu gugu= (Gugu) guguService.selectGuguById(user.getGuguid().toString());
         Map<String,Object> map=new HashMap<>();
         if(gugu==null) {
             map.put("result","");
