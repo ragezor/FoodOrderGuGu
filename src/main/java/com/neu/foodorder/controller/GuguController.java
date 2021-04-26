@@ -19,6 +19,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/gugu")
 public class GuguController {
+
     @Autowired
     private GuguService guguService;
     //注册

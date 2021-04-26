@@ -24,6 +24,13 @@ import java.util.Map;
 public class TodoController {
     @Autowired
     private TodoService todoService;
+    private  GuguService guguService;
+
+    public TodoController(GuguService guguService) {
+        this.guguService = guguService;
+    }
+
+
     //add
     @RequestMapping("/add")
     public Object register(@RequestBody Todo todo) {
@@ -123,6 +130,35 @@ public class TodoController {
 		return map;
 
 	}
+	//完成任务，获得鸽粮
+    @RequestMapping("/done")
+    public Object doneTodo(HttpSession session) {
+        User user=(User)session.getAttribute("loginUser");
+
+        String  guguid=user.getGuguid().toString();
+        System.out.println(guguid);
+        Gugu gugu=guguService.selectGuguById(guguid);
+        gugu.setFood(gugu.getFood()+1);
+        int i=guguService.updateGugu(gugu);
+        Map<String,Object> map=new HashMap<>();
+
+        Map<String,Object> result=new HashMap<>();
+        if(i==1) {
+            result.put("udMsg", "修改成功");
+            map.put("success",true);
+            map.put("code",1);
+            map.put("failMsg","");
+            result.put("todoname修改结果",gugu.getFood());
+        }
+        else {
+            result.put("udMsg", "修改失败");
+            map.put("success",false);
+            map.put("code",0);
+            map.put("failMsg","todo不存在或参数为空");
+        }
+        map.put("result", result);
+        return map;
+    }
 
 
 }
