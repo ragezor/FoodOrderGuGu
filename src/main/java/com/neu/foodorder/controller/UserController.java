@@ -178,6 +178,34 @@ public class UserController {
 		map.put("result", result);
 		return map;
 	}
+
+	//用户加入队伍
+	@RequestMapping("/jointeam")
+	public Object joinTeam(@RequestParam("teamid")int teamid,HttpSession session) {
+		User user=(User)session.getAttribute("loginUser");
+		Map<String,Object> map=new HashMap<>();
+		user.setTeamid(teamid);
+
+		System.out.println(user.getTeamid());
+		System.out.println(user.getTeamid());
+		int i=us.updateUser(user);
+		Map<String,Object> result=new HashMap<>();
+		if(i==1) {
+			result.put("udMsg", "成功加入队伍");
+			map.put("现在的 队伍是",user.getTeamid());
+			map.put("success",true);
+			map.put("code",1);
+			map.put("failMsg","");
+		}
+		else {
+			result.put("udMsg", "入队失败");
+			map.put("success",false);
+			map.put("code",0);
+			map.put("failMsg","用户未登陆或参数为空");
+		}
+		map.put("result", result);
+		return map;
+	}
 		//上传用户头像
 		@RequestMapping("/upload")
 		public Object upload(@RequestParam("mf")MultipartFile mf,@RequestParam("userid")int id){

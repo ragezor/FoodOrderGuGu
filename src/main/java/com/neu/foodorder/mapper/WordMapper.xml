@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.foodorder.mapper.WordMapper">
+
+
+
+    <!--  用户注册-->
+    <insert id="add" >
+          insert into word(word)  values(#{word})
+    </insert>
+
+
+
+    <!-- 获取所有用户信息 带会员信息 -->
+    <select id="getWord" resultMap="selectAllById">
+    	select * from user
+    </select>
+
+    <resultMap type="com.neu.foodorder.entity.User" id="selectAllById">
+
+
+    </resultMap>
+</mapper>
