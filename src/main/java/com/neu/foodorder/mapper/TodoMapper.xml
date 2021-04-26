@@ -15,6 +15,15 @@
         SELECT * FROM todo WHERE todoid = #{todoid}
     </select>
 
+    <!-- 根据id查询todo -->
+    <select id="getTodoById" resultMap="selectById">
+
+    	select * from todo where to_days(donetime) = to_days(now()) AND userid=#{userid};
+    </select>
+    <resultMap type="com.neu.foodorder.entity.Todo" id="selectById">
+
+    </resultMap>
+
     <!-- 更新todo信息 -->
     <update id="updateTodo" parameterType="com.neu.foodorder.entity.Todo">
         update todo

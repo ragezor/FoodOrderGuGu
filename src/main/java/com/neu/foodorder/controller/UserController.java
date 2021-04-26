@@ -53,6 +53,25 @@ public class UserController {
 		return map;
 		
 	}
+//	//获取同小组的用户信息
+//	@RequestMapping("/getall")
+//	public Object getTeam() {
+//		Map<String, Object> map=new HashMap<>();
+//		List<User> list=us.getAll();
+//		map.put("success", true);
+//		map.put("code", 1);
+//		map.put("failMsg", "");
+//		map.put("result", list);
+//		if(list==null||list.size()==0) {
+//			map.put("success", false);
+//			map.put("code", 0);
+//			map.put("failMsg", "没有查询到相关内容");
+//			map.put("result","");
+//		}
+//		return map;
+//
+//	}
+
 
 	
 		//登录

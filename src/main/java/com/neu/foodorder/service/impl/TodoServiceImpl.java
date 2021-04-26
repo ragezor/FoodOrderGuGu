@@ -7,6 +7,8 @@ import com.neu.foodorder.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TodoServiceImpl implements TodoService {
     @Autowired(required = false)
@@ -25,5 +27,10 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public int updateTodo(Todo todo) {
         return todoMapper.updateTodo(todo);
+    }
+
+    @Override
+    public List<Todo> getTodoById(int userid) {
+        return todoMapper.getTodoById(userid);
     }
 }

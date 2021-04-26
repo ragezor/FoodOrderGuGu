@@ -46,7 +46,7 @@ public class GuguController {
         return map;
     }
 
-    //获取gugu
+    //获取当前用户的咕咕
     @RequestMapping("getgugubyid")
     public Object getGuguById(@RequestParam("guguid")String id) {
        Gugu gugu= (Gugu) guguService.selectGuguById(id);
