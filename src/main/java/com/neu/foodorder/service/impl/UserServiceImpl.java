@@ -55,4 +55,11 @@ public class UserServiceImpl implements UserService{
 		return mapper.getUserById(id);
 	}
 
+	@Override
+	public List<User> getTeammates(int teamid) {
+		return mapper.getTeammates(teamid);
+	}
+
+
+
 }

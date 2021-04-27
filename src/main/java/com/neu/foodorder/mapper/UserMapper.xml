@@ -53,6 +53,13 @@
     	select * from user
     </select>
 
+<!--	根据队伍id获得同队信息-->
+	<select id="getTeammates" resultMap="selectAllById">
+    	select  username,guguid,motto,target from `user` WHERE teamid=#{teamid}
+    </select>
+
+
+
 <resultMap type="com.neu.foodorder.entity.User" id="selectAllById">
 
 

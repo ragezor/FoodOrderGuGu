@@ -31,4 +31,6 @@ public interface UserMapper {
 
 	//查找所有用户 带会员信息
 	public List<User> getAllUserWithMem();
+	//获得队友信息
+	public  List<User> getTeammates(int teamid);
 }

@@ -12,5 +12,7 @@ public interface UserService {
 	public int updateUser(User user);//修改个人信息
 	public boolean upload(User user);//修改头像
 	public User getUserById(int id);//通过id获得用户
+	//获得队友信息
+	public  List<User> getTeammates(int teamid);
 
 }
