@@ -10,9 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpSession;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,6 +19,12 @@ public class GuguController {
 
     @Autowired
     private GuguService guguService;
+    private  UserService userService;
+
+    public GuguController(UserService userService) {
+        this.userService = userService;
+    }
+
     //注册
     @RequestMapping("/add")
     public Object register(@RequestBody Gugu gugu) {
@@ -49,8 +52,9 @@ public class GuguController {
 
     //获取当前用户的咕咕
     @RequestMapping("/getgugubyid")
-    public Object getGuguById(HttpSession session) {
-        User user=(User)session.getAttribute("loginUser");
+    public Object getGuguById(@RequestParam("userid")int id) {
+//        User user=(User)session.getAttribute("loginUser");
+        User user=userService.getUserById(id);
        Gugu gugu= (Gugu) guguService.selectGuguById(user.getGuguid().toString());
         Map<String,Object> map=new HashMap<>();
         if(gugu==null) {

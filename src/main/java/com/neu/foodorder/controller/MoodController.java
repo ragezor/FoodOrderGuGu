@@ -1,13 +1,14 @@
 package com.neu.foodorder.controller;
 
 
-import com.neu.foodorder.entity.Gugu;
 import com.neu.foodorder.entity.Mood;
 import com.neu.foodorder.entity.User;
 import com.neu.foodorder.service.MoodService;
+import com.neu.foodorder.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
@@ -22,15 +23,21 @@ import java.util.Map;
 public class MoodController {
     @Autowired
     private MoodService moodService;
+    private UserService userService;
+
+    public MoodController(UserService userService) {
+        this.userService = userService;
+    }
+
     //注册
     @RequestMapping("/add")
-    public Object register(@RequestBody Mood mood, HttpSession session) {
+    public Object register(@RequestBody Mood mood) {
         Map<String,Object> map = new HashMap<String,Object>();
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String day=formatter.format(date);
         mood.setTime(day);
-        User user=(User)session.getAttribute("loginUser");
+        User user=userService.getUserById(mood.getUserid());
         int userid=user.getUserid();
         mood.setUserid(userid);
         int i = moodService.add(mood);
@@ -54,8 +61,8 @@ public class MoodController {
 
     //获取当前用户的心情
     @RequestMapping("/getmoodbyid")
-    public Object getMoodById(HttpSession session) {
-        User user=(User)session.getAttribute("loginUser");
+    public Object getMoodById(@RequestParam("userid")int id) {
+        User user=userService.getUserById(id);
        String userid=user.getUserid().toString();
         List<Mood> list=moodService.selectMoodById(userid);
         Map<String,Object> map=new HashMap<>();

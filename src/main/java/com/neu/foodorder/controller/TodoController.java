@@ -6,6 +6,7 @@ import com.neu.foodorder.entity.Todo;
 import com.neu.foodorder.entity.User;
 import com.neu.foodorder.service.GuguService;
 import com.neu.foodorder.service.TodoService;
+import com.neu.foodorder.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,9 +26,11 @@ public class TodoController {
     @Autowired
     private TodoService todoService;
     private  GuguService guguService;
+    private UserService userService;
 
-    public TodoController(GuguService guguService) {
+    public TodoController(GuguService guguService, UserService userService) {
         this.guguService = guguService;
+        this.userService = userService;
     }
 
 
@@ -110,10 +113,11 @@ public class TodoController {
         map.put("result", result);
         return map;
     }
-   // 获取同小组的用户信息
+   // 获取今天的todo
 	@RequestMapping("/gettodo")
-	public Object getTeam(HttpSession session) {
-        User user=(User)session.getAttribute("loginUser");
+	public Object getTeam(@RequestParam("userid")int id) {
+//        User user=(User)session.getAttribute("loginUser");
+        User user=userService.getUserById(id);
         int userid=user.getUserid();
 		Map<String, Object> map=new HashMap<>();
 		List<Todo> list=todoService.getTodoById(userid);
@@ -132,8 +136,8 @@ public class TodoController {
 	}
 	//完成任务，获得鸽粮
     @RequestMapping("/done")
-    public Object doneTodo(HttpSession session) {
-        User user=(User)session.getAttribute("loginUser");
+    public Object doneTodo(@RequestParam("userid")int id) {
+        User user=userService.getUserById(id);
 
         String  guguid=user.getGuguid().toString();
         System.out.println(guguid);

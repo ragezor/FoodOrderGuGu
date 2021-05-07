@@ -55,8 +55,8 @@ public class UserController {
 	}
 	//获取同小组的用户信息
 	@RequestMapping("/getteammates")
-	public Object getTeam(HttpSession session) {
-		User user=(User)session.getAttribute("loginUser");
+	public Object getTeam(@RequestParam("userid")int id) {
+		User user=us.getUserById(id);
 		int teamid=user.getTeamid();
 		Map<String, Object> map=new HashMap<>();
 		List<User> list=us.getTeammates(teamid);
@@ -105,10 +105,11 @@ public class UserController {
 		
 		//获取个人信息
 		@RequestMapping("getloginuser")
-		public Object getLoginUseer(@RequestParam("userid")int id,HttpSession session) {
-			User user=(User)session.getAttribute("loginUser");
+		public Object getLoginUseer(@RequestParam("userid")int id) {
+//			User user=(User)session.getAttribute("loginUser");
+			User user=us.getUserById(id);
 			Map<String,Object> map=new HashMap<>();
-			if(user==null||id!=user.getUserid()) {
+			if(user==null) {
 				map.put("result","");
 				map.put("success",false);
 				map.put("code",0);
@@ -202,8 +203,8 @@ public class UserController {
 
 	//用户加入队伍
 	@RequestMapping("/jointeam")
-	public Object joinTeam(@RequestParam("teamid")int teamid,HttpSession session) {
-		User user=(User)session.getAttribute("loginUser");
+	public Object joinTeam(@RequestParam("teamid")int teamid,@RequestParam("userid")int id) {
+		User user=us.getUserById(id);
 		Map<String,Object> map=new HashMap<>();
 		user.setTeamid(teamid);
 
